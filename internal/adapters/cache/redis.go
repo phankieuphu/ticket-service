@@ -3,8 +3,8 @@ package cache
 import (
 	"context"
 	"log"
+	"ticket-service/config"
 	"time"
-	"user-service/config"
 
 	"github.com/redis/go-redis/v9"
 )

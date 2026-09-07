@@ -1,4 +1,4 @@
-module user-service
+module ticket-service
 
 go 1.26.4
 

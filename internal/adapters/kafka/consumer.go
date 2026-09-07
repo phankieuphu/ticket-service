@@ -3,7 +3,7 @@ package kafka
 import (
 	"context"
 	"log"
-	"user-service/config"
+	"ticket-service/config"
 
 	"github.com/IBM/sarama"
 )

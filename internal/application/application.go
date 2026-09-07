@@ -3,12 +3,12 @@ package application
 import (
 	"context"
 	"log"
-	"user-service/config"
-	"user-service/internal/adapters/cache"
-	database_provider "user-service/internal/adapters/database/provider"
-	"user-service/internal/adapters/kafka"
+	"ticket-service/config"
+	"ticket-service/internal/adapters/cache"
+	database_provider "ticket-service/internal/adapters/database/provider"
+	"ticket-service/internal/adapters/kafka"
 
-	ginhttp "user-service/internal/adapters/http"
+	ginhttp "ticket-service/internal/adapters/http"
 
 	"github.com/joho/godotenv"
 )

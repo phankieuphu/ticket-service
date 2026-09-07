@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"user-service/config"
+	"ticket-service/config"
 
 	"github.com/gin-gonic/gin"
 )

@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"user-service/internal/application"
+	"ticket-service/internal/application"
 )
 
 func main() {
