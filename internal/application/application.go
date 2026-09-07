@@ -7,8 +7,6 @@ import (
 	"user-service/internal/adapters/cache"
 	database_provider "user-service/internal/adapters/database/provider"
 	"user-service/internal/adapters/kafka"
-	"user-service/internal/adapters/repository"
-	"user-service/internal/domain/services"
 
 	ginhttp "user-service/internal/adapters/http"
 
@@ -27,29 +25,7 @@ func AccountApplication(ctx context.Context) {
 	if err != nil {
 		log.Fatalf("failed to init database: %v", err)
 	}
-
-	// repository & service
-	permissionRepository := repository.NewPermissionRepository(database)
-	roleRepository := repository.NewRoleRepository(database)
-	userRepository := repository.NewUserRepository(database)
-
-	permissionService := services.NewPermissionService(*cfg, permissionRepository)
-	roleService := services.NewRoleService(*cfg, roleRepository, permissionService)
-	userService := services.NewUserService(*cfg, userRepository, roleService)
-
-	// // SQS consumer
-	// queueClient, err := consumer.NewSQSClient(*cfg, ctx)
-	// if err != nil {
-	// 	log.Fatalf("failed to init SQS client: %v", err)
-	// }
-	// queueProvider, err := consumer.NewQueueProvider(*queueClient)
-	// if err != nil {
-	// 	log.Fatalf("failed to init queue provider: %v", err)
-	// }
-	// accountConsumer, err := consumer.NewAccountConsumer(ctx, queueProvider, cfg, userService, cfg.SqsTopic.Account)
-	// if err != nil {
-	// 	log.Fatalf("failed to init account consumer: %v", err)
-	// }
+	_ = database
 
 	// Redis cache
 	redisCache, err := cache.NewRedisCache(cfg.Redis)
@@ -76,11 +52,10 @@ func AccountApplication(ctx context.Context) {
 	defer kafkaConsumer.Close()
 
 	// HTTP server (gin)
-	httpServer := ginhttp.NewServer(cfg.API, cfg.JWT, userService)
+	httpServer := ginhttp.NewServer(cfg.API)
 
-	log.Println("User Application Started")
+	log.Println("Ticket application start")
 
-	// go accountConsumer.Start(ctx)
 	go kafkaConsumer.Start(ctx)
 	httpServer.Start()
 }

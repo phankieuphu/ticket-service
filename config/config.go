@@ -16,12 +16,7 @@ type Config struct {
 }
 
 type AWS struct {
-	Region   string
-	SqsTopic SQSTopic
-}
-
-type SQSTopic struct {
-	Account string
+	Region string
 }
 
 type Database struct {
@@ -69,9 +64,6 @@ func LoadConfig() *Config {
 	return &Config{
 		AWS: AWS{
 			Region: GetEnv("AWS_REGION", "ap-southeast-1"),
-			SqsTopic: SQSTopic{
-				Account: GetEnv("ACCOUNTING_SQS", ""),
-			},
 		},
 		Database: Database{
 			Host:            GetEnv("DB_HOST", "localhost"),
