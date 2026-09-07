@@ -16,7 +16,7 @@ func NewProducer(cfg config.Kafka) (*Producer, error) {
 	saramaCfg := sarama.NewConfig()
 	saramaCfg.Producer.Return.Successes = true
 	saramaCfg.Producer.Return.Errors = true
-	saramaCfg.Producer.RequiredAcks = sarama.WaitForAll
+	saramaCfg.Producer.RequiredAcks = sarama.WaitForAll // acks = acknowledgment
 	saramaCfg.Producer.Retry.Max = 3
 
 	p, err := sarama.NewSyncProducer(cfg.Brokers, saramaCfg)
