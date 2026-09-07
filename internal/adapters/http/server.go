@@ -4,10 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"user-service/config"
-	"user-service/internal/adapters/http/handler"
-	"user-service/internal/adapters/http/middleware"
-	"user-service/internal/domain/ports"
+	"ticket-service/config"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,17 +14,11 @@ type Server struct {
 	engine     *gin.Engine
 }
 
-func NewServer(cfg config.API, jwtCfg config.JWT, userService ports.UserService) *Server {
+func NewServer(cfg config.API) *Server {
 	engine := gin.New()
 	engine.Use(gin.Logger(), gin.Recovery())
 
-	v1 := engine.Group("/api/v1")
-
-	handler.NewAuthHandler(userService).RegisterRoutes(v1)
-
-	users := v1.Group("/")
-	users.Use(middleware.Auth(jwtCfg.Secret))
-	handler.NewUserHandler(userService).RegisterRoutes(users)
+	engine.Group("/api/v1")
 
 	return &Server{
 		engine: engine,

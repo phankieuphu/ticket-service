@@ -16,12 +16,7 @@ type Config struct {
 }
 
 type AWS struct {
-	Region   string
-	SqsTopic SQSTopic
-}
-
-type SQSTopic struct {
-	Account string
+	Region string
 }
 
 type Database struct {
@@ -69,9 +64,6 @@ func LoadConfig() *Config {
 	return &Config{
 		AWS: AWS{
 			Region: GetEnv("AWS_REGION", "ap-southeast-1"),
-			SqsTopic: SQSTopic{
-				Account: GetEnv("ACCOUNTING_SQS", ""),
-			},
 		},
 		Database: Database{
 			Host:            GetEnv("DB_HOST", "localhost"),
@@ -93,7 +85,7 @@ func LoadConfig() *Config {
 			Brokers:       []string{GetEnv("KAFKA_BROKERS", "localhost:9092")},
 			ProducerTopic: GetEnv("KAFKA_PRODUCER_TOPIC", "account.events"),
 			ConsumerTopic: GetEnv("KAFKA_CONSUMER_TOPIC", "account.events"),
-			ConsumerGroup: GetEnv("KAFKA_CONSUMER_GROUP", "user-service"),
+			ConsumerGroup: GetEnv("KAFKA_CONSUMER_GROUP", "ticket-service"),
 		},
 		Redis: Redis{
 			Host:     GetEnv("REDIS_HOST", "localhost"),

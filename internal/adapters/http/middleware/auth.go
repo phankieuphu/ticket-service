@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 	"strings"
-	"user-service/pkg/jwtutil"
+	"ticket-service/pkg/jwtutil"
 
 	"github.com/gin-gonic/gin"
 )

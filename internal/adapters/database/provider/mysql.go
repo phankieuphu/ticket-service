@@ -2,8 +2,8 @@ package database_provider
 
 import (
 	"fmt"
+	"ticket-service/config"
 	"time"
-	"user-service/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
